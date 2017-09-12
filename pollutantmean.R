@@ -7,3 +7,7 @@ pollutantmean <- function (directory, pollutant, id = 1:332) {
         }
         mean(dat[[pollutant]], na.rm=TRUE)                              ##calculate ave. of indicated pollutant after removing NA
 }
+
+onelinePollutantMean <- function(directory, pollutant, id = 1:332) {
+        mean(unlist(lapply(dir(directory, full.name = TRUE), read.csv)[[1]][2:3]))
+}
