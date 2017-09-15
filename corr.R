@@ -1,14 +1,28 @@
+## corr function calculates correlation between
+## sulfate and nitrate from monitors that
+## provides more data points than specified threshold
+
+## need complete.R as well
+
 corr <- function (directory, threshold = 0) {
-        completeNumbData <- complete(directory)                         ##uses complete function to have number of complete data
+        ##uses complete function to have number of complete data
+        completeNumbData <- complete(directory)
+        ## T or F list that indicates data with above threshold
         testDataAboveThreshold <- completeNumbData[,2] > threshold
+        ## return empty numeric vector if no monitors have data points
+        ## more than specified threshold
         if (sum(testDataAboveThreshold) < 1) {
                 cor_data <- vector("numeric", length = 0)
                 return(cor_data)
         }
+        ## subset of data that is above threshold
         dataAboveThreshold <- completeNumbData[testDataAboveThreshold,]
         countDataAboveThreshold <- nrow(dataAboveThreshold)
-        monitor_list <- list.files(directory, full.names = TRUE)        ##create a list with all files' name
-        cor_data <-c()                                                  ##create an empty data frame
+        ## create a list with all files' name
+        monitor_list <- list.files(directory, full.names = TRUE)
+        ## create an empty data frame
+        cor_data <-c()
+        ## read in data only above threshold and removes NA
         for (i in 1:countDataAboveThreshold) {
                 dat <- read.csv(monitor_list[dataAboveThreshold[i,1]])
                 good <- complete.cases(dat)

@@ -1,13 +1,24 @@
+## complete function calculates the number of complete
+## cases of data from specified id of monitors
+
 complete <- function (directory, id = 1:332) {
-        monitor_list <- list.files(directory, full.names = TRUE)        ##create a list with all files' name
-        fin <-data.frame()                                              ##create an empty data frame
-        number_data <- length(monitor_list)                             ##counts how many total data file we have
-        for (i in id) {                                                 ##subsets "id" part of total data
-                dat <- read.csv(monitor_list[i])                        ##read in individual data into intermediate empty data frame
-                good <- complete.cases(dat)                             ##TRUE if a row is complete / FALSE if a row has NA
-                nobs <- dim(dat[good,])                                 ##dat corresponding to good's dimension to count how many complete cases we have
-                fin <- rbind(fin, c(i, nobs[1]))                        ##combines the list of complete cases into fin data frame
+        ## create a list with all files' name
+        monitor_list <- list.files(directory, full.names = TRUE)
+        ## create an empty data frame
+        fin <-data.frame()
+        ## subsets "id" part of total data
+        for (i in id) {
+                ## reads in individual data into intermediate empty data frame
+                dat <- read.csv(monitor_list[i])
+                ## TRUE if a row is complete / FALSE if a row has NA
+                good <- complete.cases(dat)
+                ## dat corresponding to good's dimension to
+                ## count how many complete cases we have
+                nobs <- dim(dat[good,])
+                ## combines the list of complete cases into fin data frame
+                fin <- rbind(fin, c(i, nobs[1]))
         }
-        colnames(fin) = c("id", "nobs")                                 ##gives fin data frame a column name
+        ## gives fin data frame a column name
+        colnames(fin) = c("id", "nobs")
         fin
 }
