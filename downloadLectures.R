@@ -7,7 +7,7 @@ downloadLectures<- function(fileList,courseName="rProgramming_wk4") {
         dlMethod <- "curl"
         if(substr(Sys.getenv("OS"),1,7) == "Windows") dlMethod <- "wininet"
         for (i in 1:length(fileList)) {
-                outFile <- paste(courseName,"_lecture_",sprintf("%03d.mp4",i),sep="")
+                outFile <- paste(sprintf("%02d",i),courseName,".mp4",sep="")
                 if(!file.exists(outFile)){
                         download.file(fileList[i],destfile=outFile,method=dlMethod,mode="wb")
                 }
