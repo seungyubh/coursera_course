@@ -9,5 +9,5 @@ pollutantmean <- function (directory, pollutant, id = 1:332) {
 }
 
 onelinePollutantMean <- function(directory, pollutant, id = 1:332) {    ##working prototype
-        mean(unlist(lapply(dir(directory, full.name = TRUE), read.csv)[[1]][2:3]))
+        mean(unlist(lapply(dir(directory, full.name = TRUE), function(data) read.csv(data$pollutant))))
 }
