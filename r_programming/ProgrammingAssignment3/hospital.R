@@ -4,5 +4,11 @@
 ## best function will find the best hospital in a given state
 
 best <- function(state, outcome) {
+        outcomeRead()
         
 }
+
+outcomeRead <- function() {
+        outcome <<- read.csv("outcome-of-care-measures.csv", colClasses = "character")
+}
+
