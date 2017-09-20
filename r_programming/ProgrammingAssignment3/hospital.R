@@ -3,7 +3,7 @@
 
 ## need plyr package
 
-## best function will find the best hospital in a given state
+## best function will find the best hospital in a given state for a given outcome
 
 best <- function(state, outcome) {
         library(plyr)
