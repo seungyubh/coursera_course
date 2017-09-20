@@ -1,24 +1,20 @@
-## finds the best hospitals in specific states with repect to
-## a specific disease or condition
+## ranks the hospitals in with respect to a specified outcome from all states
 
 ## need plyr package
 
-## best function will find the best hospital in a given state for a given outcome
+## rankall function will rank the hospitals for a given outcome in all states
 
-best <- function(state, outcome) {
+rankall <- function(outcome, num = "best") {
         library(plyr)
         outcomeRead(outcome)
         
-        ## testing whether the state and outcome input is valid
-        if((state %in% rawOutcome$State) == FALSE) {
-                stop("invalid state")
-        }
-        else if(outcome != "heart attack" & outcome != "heart failure" & outcome != "pneumonia") {
+        ## testing whether the outcome input is valid
+        if(outcome != "heart attack" & outcome != "heart failure" & outcome != "pneumonia") {
                 stop("invalid outcome")
         }
         
         trimData(outcome)
-        orderData(state, outcome)
+        orderData(outcome, num)
         
 }
 
@@ -39,9 +35,11 @@ trimData <- function(outcome) {
 }
 
 ## ordering the valid outcome of interest
-orderData <- function(state, outcome) {
-        srtdValOutInt <- arrange(validOutcomeOfInterest, State, Outcome, Hospital)
-        stateSrtdValOutInt <- split(srtdValOutInt, srtdValOutInt$State)
-        stateSrtdValOutInt[[state]][1,1]
+orderData <- function(outcome, num) {
+        srtdValOutInt <- arrange(validOutcomeOfInterest, Outcome, State, Hospital)
+        #stateSrtdValOutInt <- split(srtdValOutInt, srtdValOutInt$State)
+        #if (num == "worst") {num <- dim(stateSrtdValOutInt)[1]}
+        if (num == "worst") {num <- dim(srtdValOutInt)[1]}
+        if (num == "best") {num <- 1}
+        srtdValOutInt
 }
-
