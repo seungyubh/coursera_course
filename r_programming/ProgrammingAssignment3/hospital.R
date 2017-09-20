@@ -1,5 +1,5 @@
-## numerous helper functions to rank the hospitals in specific states
-## with repect to specific disease or condition
+## finds the best hospitals in specific states with repect to
+## a specific disease or condition
 
 ## need plyr package
 
