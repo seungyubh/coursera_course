@@ -1,11 +1,10 @@
-## finds the best hospitals in specific states with repect to
-## a specific disease or condition
+## ranks the hospitals in a specified state with respect to a specified outcome
 
 ## need plyr package
 
-## best function will find the best hospital in a given state for a given outcome
+## rankhospital function will rank the hospitals in a given state for a given outcome
 
-best <- function(state, outcome) {
+rankhospital <- function(state, outcome, num) {
         library(plyr)
         outcomeRead(state, outcome)
         
@@ -18,7 +17,7 @@ best <- function(state, outcome) {
         }
         
         trimData(outcome)
-        orderData(state, outcome)
+        orderData(state, outcome, num)
         
 }
 
@@ -39,9 +38,10 @@ trimData <- function(outcome) {
 }
 
 ## ordering the valid outcome of interest
-orderData <- function(state, outcome) {
-        srtdValOutInt <- arrange(validOutcomeOfInterest, State, Outcome, Hospital)
+orderData <- function(state, outcome, num) {
+        srtdValOutInt <- arrange(validOutcomeOfInterest,State, Outcome, Hospital)
         stateSrtdValOutInt <- split(srtdValOutInt, srtdValOutInt$State)
-        stateSrtdValOutInt[[state]][1,1]
+        if (num == "worst") {num <- dim(stateSrtdValOutInt[[state]])[1]}
+        if (num == "best") {num <- 1}
+        stateSrtdValOutInt[[state]][num,1]
 }
-
