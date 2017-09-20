@@ -4,6 +4,7 @@
 ## best function will find the best hospital in a given state
 
 best <- function(state, outcome) {
+        library(plyr)
         outcomeRead(state, outcome)
         
 }
@@ -16,7 +17,10 @@ outcomeRead <- function(state, outcome) {
                                 colClasses = "character", na.strings = "Not Available")
         listOfOutcome <- c("heart attack" = 11, "heart failure" = 17, "pneumonia" = 23)
         outcomeOfInterest <- rawOutcome[,c(2,7,listOfOutcome[outcome])]
-        validOutcome <- complete.cases(outcomeOfInterest)
-        outcomeOfInterest[validOutcome,]
+        names(outcomeOfInterest) <- c("Hospital", "State", "Outcome")
+        validOutcomeOfInterest <- outcomeOfInterest[complete.cases(outcomeOfInterest),]
+        sortedValOutInt <- arrange(validOutcomeOfInterest, State, Outcome, Hospital)
+        stateSortedValOutInt <- split(sortedValOutInt, sortedValOutInt$State)
+        stateSortedValOutInt[state]
 }
 
