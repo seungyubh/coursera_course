@@ -1,4 +1,4 @@
-## numerous functions to rank the hospitals in specific states
+## numerous helper functions to rank the hospitals in specific states
 ## with repect to specific disease or condition
 
 ## need plyr package
