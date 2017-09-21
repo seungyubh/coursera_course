@@ -39,7 +39,7 @@ trimData <- function(outcome) {
 
 ## ordering the valid outcome of interest
 orderData <- function(state, outcome, num) {
-        srtdValOutInt <- arrange(validOutcomeOfInterest,State, Outcome, Hospital)
+        srtdValOutInt <- arrange(validOutcomeOfInterest, State, Outcome, Hospital)
         stateSrtdValOutInt <- split(srtdValOutInt, srtdValOutInt$State)
         if (num == "worst") {num <- dim(stateSrtdValOutInt[[state]])[1]}
         if (num == "best") {num <- 1}

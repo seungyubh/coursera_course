@@ -1,4 +1,5 @@
 ## ranks the hospitals in with respect to a specified outcome from all states
+###### this function is not complete.....
 
 ## need plyr package
 
@@ -36,10 +37,15 @@ trimData <- function(outcome) {
 
 ## ordering the valid outcome of interest
 orderData <- function(outcome, num) {
-        srtdValOutInt <- arrange(validOutcomeOfInterest, Outcome, State, Hospital)
-        #stateSrtdValOutInt <- split(srtdValOutInt, srtdValOutInt$State)
-        #if (num == "worst") {num <- dim(stateSrtdValOutInt)[1]}
-        if (num == "worst") {num <- dim(srtdValOutInt)[1]}
+        srtdValOutInt <- arrange(validOutcomeOfInterest, State, Outcome, Hospital)
+        stateSrtdValOutInt <<- split(srtdValOutInt, srtdValOutInt$State)
         if (num == "best") {num <- 1}
-        srtdValOutInt
+        combinedRank <- data.frame()
+        if (num == "worst") {
+                last_hos <<- unlist(lapply(stateSrtdValOutInt[1:54], nrow))
+                combinedRank <- lapply(stateSrtdValOutInt[[1:54]], function(who) who[last_hos,])
+        } else {
+                combinedRank <- lapply(stateSrtdValOutInt, function(who) who[num,])
+        }
+        combinedRank
 }
