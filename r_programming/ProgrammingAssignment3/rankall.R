@@ -16,6 +16,7 @@ rankall <- function(outcome, num = "best") {
         
         trimData(outcome)
         orderData(outcome, num)
+        combinedRank
         
 }
 
@@ -41,11 +42,11 @@ orderData <- function(outcome, num) {
         stateSrtdValOutInt <<- split(srtdValOutInt, srtdValOutInt$State)
         if (num == "best") {num <- 1}
         combinedRank <- data.frame()
-        if (num == "worst") {
-                last_hos <<- unlist(lapply(stateSrtdValOutInt[1:54], nrow))
-                combinedRank <- lapply(stateSrtdValOutInt[[1:54]], function(who) who[last_hos,])
-        } else {
-                combinedRank <- lapply(stateSrtdValOutInt, function(who) who[num,])
-        }
-        combinedRank
+        #if (num == "worst") {
+        #        last_hos <<- unlist(lapply(stateSrtdValOutInt[1:54], nrow))
+        #        combinedRank <- lapply(stateSrtdValOutInt[[1:54]], function(who) who[last_hos,])
+        #} else {
+        combinedRank <<- lapply(stateSrtdValOutInt, function(who) who[num,])
+        #}
+        
 }
